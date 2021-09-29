@@ -18,6 +18,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+/**
+ *
+ * @author Saeed Shah
+ */
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {

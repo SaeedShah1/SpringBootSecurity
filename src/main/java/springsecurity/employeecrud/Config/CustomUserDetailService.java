@@ -8,10 +8,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import springsecurity.employeecrud.RolePermissionModel.Entity.UserEntity;
 import springsecurity.employeecrud.RolePermissionModel.Service.UserService;
-
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
+
+
+/**
+ *
+ * @author Saeed Shah
+ */
 
 @Service
 public class CustomUserDetailService implements UserDetailsService {
