@@ -38,11 +38,10 @@ public class LoginController {
 
         try {
             UserEntity userEntity = userService.findByUserName(jwtRequest.getUsername());
-            if(userEntity==null){
+            if(userEntity==null || !userEntity.getPassword().equals(jwtRequest.getPassword())){
                 return new ResponseEntity(new StatusDTO(0, "User Not Found!" +
                         "  Incorrect username or password!"), HttpStatus.NOT_FOUND);
             }
-
 
             this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
             UserDetails userDetails = this.customUserDetailService.loadUserByUsername(jwtRequest.getUsername());
