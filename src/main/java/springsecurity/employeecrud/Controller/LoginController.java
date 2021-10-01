@@ -38,11 +38,11 @@ public class LoginController {
     @Autowired
     private UserService userService;
     @PostMapping(value = "/auth")
-    public ResponseEntity<StatusDTO> auth(@ModelAttribute JwtRequest jwtRequest) throws Exception {
+    public ResponseEntity<StatusDTO> auth(@RequestBody JwtRequest jwtRequest) throws Exception {
 
         try {
             UserEntity userEntity = userService.findByUserName(jwtRequest.getUsername());
-            if(userEntity==null || !userEntity.getPassword().equals(jwtRequest.getPassword())){
+            if(userEntity==null){
                 return new ResponseEntity(new StatusDTO(0, "User Not Found!" +
                         "  Incorrect username or password!"), HttpStatus.NOT_FOUND);
             }
