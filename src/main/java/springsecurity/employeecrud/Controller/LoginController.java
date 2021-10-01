@@ -18,6 +18,10 @@ import springsecurity.employeecrud.Security.JwtUtil;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ *
+ * @author Saeed Shah
+ */
 @RestController
 @RequestMapping(path = "/Login")
 public class LoginController {
