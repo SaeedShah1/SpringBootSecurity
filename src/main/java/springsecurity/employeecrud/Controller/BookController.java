@@ -4,13 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springsecurity.employeecrud.DTO.EmployeeDTO;
+import springsecurity.employeecrud.DTO.BookDTO;
 import springsecurity.employeecrud.DTO.StatusDTO;
-import springsecurity.employeecrud.Entity.EmployeeEntity;
-import springsecurity.employeecrud.Service.EmployeeService;
-import springsecurity.employeecrud.Transformer.EmployeeTransformer;
+import springsecurity.employeecrud.Entity.BookEntity;
+import springsecurity.employeecrud.Service.BookService;
+import springsecurity.employeecrud.Transformer.BookTransformer;
 
 import java.util.List;
+
 /**
  *
  * @author Saeed Shah
@@ -18,23 +19,23 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(path = "/Employee")
-public class EmployeeController {
+@RequestMapping(path = "/books")
+public class BookController {
 
     @Autowired
-    private EmployeeService employeeService;
+    private BookService bookService;
 
 
     @PostMapping(value = "/create")
-    public ResponseEntity<StatusDTO> create(@ModelAttribute EmployeeDTO employeeDTO) {
+    public ResponseEntity<StatusDTO> create(@ModelAttribute BookDTO bookDTO) {
         try {
 
-            EmployeeEntity employeeEntity = EmployeeTransformer.toEntity(employeeDTO);
-            employeeEntity.setStatus(true);
-            employeeService.create(employeeEntity);
+            BookEntity bookEntity = BookTransformer.toEntity(bookDTO);
+            bookEntity.setStatus(true);
+            bookService.create(bookEntity);
 
 
-            return new ResponseEntity(new StatusDTO(1, " Added Successfully", EmployeeTransformer.toDTO(employeeEntity)), HttpStatus.OK);
+            return new ResponseEntity(new StatusDTO(1, " Added Successfully", BookTransformer.toDTO(bookEntity)), HttpStatus.OK);
 
 
         } catch (Exception e) {
@@ -46,18 +47,18 @@ public class EmployeeController {
     }
 
     @PostMapping(value = "/update")
-    public ResponseEntity<StatusDTO> update(@ModelAttribute EmployeeDTO employeeDTO) {
+    public ResponseEntity<StatusDTO> update(@ModelAttribute BookDTO bookDTO) {
 
         try {
 
-            EmployeeEntity employeeEntity = employeeService.findById(Long.parseLong(employeeDTO.getId()));
-            if (employeeEntity == null) {
-                return new ResponseEntity(new StatusDTO(0, "Employee not found"), HttpStatus.NOT_FOUND);
+            BookEntity bookEntity = bookService.findById(Long.parseLong(bookDTO.getId()));
+            if (bookEntity == null) {
+                return new ResponseEntity(new StatusDTO(0, "Book not found"), HttpStatus.NOT_FOUND);
             }
-            EmployeeEntity employeeEntity1 = EmployeeTransformer.toEntity(employeeDTO);
+            BookEntity bookEntity1 = BookTransformer.toEntity(bookDTO);
 
-            employeeEntity1.setStatus(true);
-            employeeService.create(employeeEntity1);
+            bookEntity1.setStatus(true);
+            bookService.create(bookEntity1);
 
             return new ResponseEntity(new StatusDTO(1, "Updated"), HttpStatus.OK);
 
@@ -72,9 +73,9 @@ public class EmployeeController {
     public ResponseEntity<StatusDTO> delete(@PathVariable Long id) {
 
         try {
-            EmployeeEntity employeeEntity = employeeService.findById(id);
-            if (employeeEntity != null) {
-                employeeService.delete(employeeEntity);
+            BookEntity bookEntity = bookService.findById(id);
+            if (bookEntity != null) {
+                bookService.delete(bookEntity);
                 return new ResponseEntity(new StatusDTO(1, "Deleted"), HttpStatus.OK);
             } else {
                 return new ResponseEntity<StatusDTO>(new StatusDTO(0, " Details not found!"), HttpStatus.NOT_FOUND);
@@ -90,13 +91,13 @@ public class EmployeeController {
     @GetMapping(value = "/view/{id}")
     public ResponseEntity<StatusDTO> getById(@PathVariable Long id) {
         try {
-            EmployeeEntity employeeEntity = employeeService.findById(id);
+            BookEntity bookEntity = bookService.findById(id);
 
-            if (employeeEntity != null) {
-                EmployeeDTO employeeDTO = EmployeeTransformer.toDTO(employeeEntity);
+            if (bookEntity != null) {
+                BookDTO employeeDTO = BookTransformer.toDTO(bookEntity);
                 return new ResponseEntity(employeeDTO, HttpStatus.OK);
             } else {
-                return new ResponseEntity(" Employee not found", HttpStatus.NOT_FOUND);
+                return new ResponseEntity(" book not found", HttpStatus.NOT_FOUND);
             }
 
         } catch (Exception e) {
@@ -108,25 +109,25 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/getAll")
-    public List<EmployeeDTO> getAll() {
-        List<EmployeeEntity> employeeEntities = employeeService.findAll();
-        return EmployeeTransformer.getDTOs(employeeEntities);
+    public List<BookDTO> getAll() {
+        List<BookEntity> bookEntities = bookService.findAll();
+        return BookTransformer.getDTOs(bookEntities);
     }
+
     @PostMapping("/truncate")
     public ResponseEntity<StatusDTO> truncate(){
         try{
-            List<EmployeeEntity> employeeEntities =employeeService.findAll();
-            if(!employeeEntities.isEmpty()){
-                for (EmployeeEntity employeeEntity: employeeEntities){
-                    employeeService.delete(employeeEntity);
+            List<BookEntity> bookEntities = bookService.findAll();
+            if(!bookEntities.isEmpty()){
+                for (BookEntity bookEntity: bookEntities){
+                    bookService.delete(bookEntity);
                 }
                 return new ResponseEntity<StatusDTO>(new StatusDTO(1, "Truncated Successfully "), HttpStatus.OK);
             }else {
-                return new ResponseEntity<StatusDTO>(new StatusDTO(0,"Employee not found!"), HttpStatus.NOT_FOUND);
+                return new ResponseEntity<StatusDTO>(new StatusDTO(0,"Books not found!"), HttpStatus.NOT_FOUND);
             }
         }catch(Exception ex){
             return new ResponseEntity<StatusDTO>(new StatusDTO(0, "Exception occurred: "+ex.getMessage()), HttpStatus.OK);
         }
     }
-
 }

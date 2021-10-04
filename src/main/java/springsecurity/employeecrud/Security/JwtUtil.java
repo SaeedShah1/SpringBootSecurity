@@ -59,8 +59,6 @@ public class JwtUtil {
     }
     public ArrayList<String> getPermissionList(String token) {
         ArrayList<String> list = new ArrayList<>();
-        System.out.println("ingetPermission:");
-
         try {
             final Claims claims = extractAllClaims(token);
             list = (ArrayList<String>) claims.get(CLAIM_KEY_PERMISSIONS);

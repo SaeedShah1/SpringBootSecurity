@@ -122,6 +122,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                 tokenPermissionlist.add("Employee/delete");
                                 tokenPermissionlist.add("Employee/getAll");
                                 tokenPermissionlist.add("Employee/view");
+                                tokenPermissionlist.add("Employee/truncate");
+
+                                tokenPermissionlist.add("books/create");
+                                tokenPermissionlist.add("books/update");
+                                tokenPermissionlist.add("books/delete");
+                                tokenPermissionlist.add("books/getAll");
+                                tokenPermissionlist.add("books/view");
+                                tokenPermissionlist.add("books/truncate");
+
 
 
                                 // to check coming url in permission list
