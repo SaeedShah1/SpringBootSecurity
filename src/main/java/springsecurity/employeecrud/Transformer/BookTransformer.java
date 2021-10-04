@@ -2,8 +2,10 @@ package springsecurity.employeecrud.Transformer;
 
 import springsecurity.employeecrud.DTO.BookDTO;
 import springsecurity.employeecrud.Entity.BookEntity;
+import springsecurity.employeecrud.Utils.AllUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class BookTransformer {
@@ -21,6 +23,9 @@ public class BookTransformer {
 
         if(dto.getName()!=null){
             entity.setName(dto.getName());
+        }
+        if(dto.getPublishDate()!=null){
+            entity.setPublishDate(AllUtils.stringToDate(dto.getPublishDate()));
         }
 
 
@@ -47,7 +52,9 @@ public class BookTransformer {
         if(entity.getAuthor()!=null){
             d.setAuthor(entity.getAuthor());
         }
-
+        if(entity.getPublishDate()!=null){
+            d.setPublishDate(entity.getPublishDate().toString());
+        }
 
         if(entity.getStatus()!=null){
             d.setStatus(entity.getStatus().toString());

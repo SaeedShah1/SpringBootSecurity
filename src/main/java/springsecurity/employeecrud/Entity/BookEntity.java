@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -26,6 +27,8 @@ public class BookEntity {
 
     @Column(name = "author")
     private String author;
+
+    private Date publishDate;
 
     @Column(name = "status")
     private Boolean status;
