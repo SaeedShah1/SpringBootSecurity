@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class PaginationUtil {
     private Integer currentPage;
-    private Integer itemsPerPages;
+    private Integer itemsPerPage;
     private String sortBy;
     private String direction;
     private String controllerName;

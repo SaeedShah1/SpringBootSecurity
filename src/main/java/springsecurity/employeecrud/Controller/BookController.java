@@ -9,7 +9,6 @@ import springsecurity.employeecrud.DTO.BookDTO;
 import springsecurity.employeecrud.DTO.PageDTO;
 import springsecurity.employeecrud.DTO.StatusDTO;
 import springsecurity.employeecrud.Entity.BookEntity;
-import springsecurity.employeecrud.SearchFilters.BookFilter;
 import springsecurity.employeecrud.Service.BookService;
 import springsecurity.employeecrud.Transformer.BookTransformer;
 import springsecurity.employeecrud.Utils.AllUtils;
@@ -141,13 +140,13 @@ public class BookController {
         return null;
     }
     @PostMapping(value = "/views")
-    public PageDTO getAll(BookFilter filter, @ModelAttribute PaginationUtil paginationUtil) {
+    public PageDTO getAll(@RequestBody PaginationUtil paginationUtil) {
         Map<String, String> params=new HashMap<>();
         params.put("page",paginationUtil.getCurrentPage().toString());
-        params.put("itemsPerPage",paginationUtil.getItemsPerPages().toString());
+        params.put("itemsPerPage",paginationUtil.getItemsPerPage().toString());
         params.put("sortBy",paginationUtil.getSortBy());
         params.put("direction",paginationUtil.getDirection());
-        Page<BookEntity> page = bookService.findAllByFilterWithPaging(filter, AllUtils.createPageRequest(params));
+        Page<BookEntity> page = bookService.findAllByFilterWithPaging(null, AllUtils.createPageRequest(params));
         return new PageDTO(BookTransformer.getDTOs(page.getContent()), page.getTotalElements(), page.getTotalPages());
     }
 
