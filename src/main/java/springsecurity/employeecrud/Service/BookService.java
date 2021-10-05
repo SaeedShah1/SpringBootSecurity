@@ -1,5 +1,8 @@
 package springsecurity.employeecrud.Service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import springsecurity.employeecrud.Entity.BookEntity;
 
 
@@ -11,5 +14,7 @@ public interface BookService {
     BookEntity delete(BookEntity entity);
     BookEntity findById(Long id);
     List<BookEntity> findAll();
-    BookEntity findByName(String name);
+    Page<BookEntity> findAllByFilterWithPaging(Specification<BookEntity> specification, Pageable pageable);
+    List<BookEntity>  findByName(String name);
+    List<BookEntity> findAllByAuthor(String name);
 }

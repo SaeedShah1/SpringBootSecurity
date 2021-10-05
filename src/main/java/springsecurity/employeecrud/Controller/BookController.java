@@ -1,16 +1,23 @@
 package springsecurity.employeecrud.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springsecurity.employeecrud.DTO.BookDTO;
+import springsecurity.employeecrud.DTO.PageDTO;
 import springsecurity.employeecrud.DTO.StatusDTO;
 import springsecurity.employeecrud.Entity.BookEntity;
+import springsecurity.employeecrud.SearchFilters.BookFilter;
 import springsecurity.employeecrud.Service.BookService;
 import springsecurity.employeecrud.Transformer.BookTransformer;
+import springsecurity.employeecrud.Utils.AllUtils;
+import springsecurity.employeecrud.Utils.PaginationUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -58,7 +65,7 @@ public class BookController {
             BookEntity bookEntity1 = BookTransformer.toEntity(bookDTO);
 
             bookEntity1.setStatus(true);
-            bookService.create(bookEntity1);
+            bookService.update(bookEntity1);
 
             return new ResponseEntity(new StatusDTO(1, "Updated"), HttpStatus.OK);
 
@@ -112,6 +119,36 @@ public class BookController {
     public List<BookDTO> getAll() {
         List<BookEntity> bookEntities = bookService.findAll();
         return BookTransformer.getDTOs(bookEntities);
+    }
+
+    @GetMapping(value = "/getAllByAuthor")
+    public List<BookDTO> getAllByAuthor(@PathVariable String authorName) {
+        List<BookEntity> bookEntities = bookService.findAllByAuthor(authorName);
+        if(bookEntities!=null && !bookEntities.isEmpty()){
+            return BookTransformer.getDTOs(bookEntities);
+        }
+
+        return null;
+    }
+
+    @GetMapping(value = "/getAllByName")
+    public List<BookDTO> getAllByName(@PathVariable String name) {
+        List<BookEntity> bookEntities = bookService.findByName(name);
+        if(bookEntities!=null && !bookEntities.isEmpty()){
+            return BookTransformer.getDTOs(bookEntities);
+        }
+
+        return null;
+    }
+    @PostMapping(value = "/views")
+    public PageDTO getAll(BookFilter filter, @ModelAttribute PaginationUtil paginationUtil) {
+        Map<String, String> params=new HashMap<>();
+        params.put("page",paginationUtil.getCurrentPage().toString());
+        params.put("itemsPerPage",paginationUtil.getItemsPerPages().toString());
+        params.put("sortBy",paginationUtil.getSortBy());
+        params.put("direction",paginationUtil.getDirection());
+        Page<BookEntity> page = bookService.findAllByFilterWithPaging(filter, AllUtils.createPageRequest(params));
+        return new PageDTO(BookTransformer.getDTOs(page.getContent()), page.getTotalElements(), page.getTotalPages());
     }
 
     @PostMapping("/truncate")

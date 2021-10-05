@@ -117,12 +117,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                                 // craete List of all the Authenticated Requests
                                 ArrayList<String> tokenPermissionlist = jwtUtil.getPermissionList(authToken);
-                                tokenPermissionlist.add("Employee/create");
-                                tokenPermissionlist.add("Employee/update");
-                                tokenPermissionlist.add("Employee/delete");
-                                tokenPermissionlist.add("Employee/getAll");
-                                tokenPermissionlist.add("Employee/view");
-                                tokenPermissionlist.add("Employee/truncate");
 
                                 tokenPermissionlist.add("books/create");
                                 tokenPermissionlist.add("books/update");
@@ -130,7 +124,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                 tokenPermissionlist.add("books/getAll");
                                 tokenPermissionlist.add("books/view");
                                 tokenPermissionlist.add("books/truncate");
-
+                                tokenPermissionlist.add("books/getAllByAuthor");
+                                tokenPermissionlist.add("books/views");
+                                tokenPermissionlist.add("books/getAllByName");
 
 
                                 // to check coming url in permission list

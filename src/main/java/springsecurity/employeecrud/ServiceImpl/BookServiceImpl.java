@@ -1,6 +1,9 @@
 package springsecurity.employeecrud.ServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import springsecurity.employeecrud.Entity.BookEntity;
 import springsecurity.employeecrud.Repository.BookRepository;
@@ -46,7 +49,17 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookEntity findByName(String name) {
+    public Page<BookEntity> findAllByFilterWithPaging(Specification<BookEntity> specification, Pageable pageable) {
+        return repository.findAll(specification,pageable);
+    }
+
+    @Override
+    public List<BookEntity> findByName(String name) {
         return repository.findByName(name);
+    }
+
+    @Override
+    public List<BookEntity> findAllByAuthor(String name) {
+        return repository.findAllByAuthor(name);
     }
 }
