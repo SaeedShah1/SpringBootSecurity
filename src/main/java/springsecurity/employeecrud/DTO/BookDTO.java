@@ -8,7 +8,7 @@ import lombok.Setter;
 public class BookDTO {
     private String id;
     private String name;
-    private String author;
+    private AuthorDTO authorDTO;
     private String status;
     private String publishDate;
 

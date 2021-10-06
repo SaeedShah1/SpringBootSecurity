@@ -16,5 +16,5 @@ public interface BookService {
     List<BookEntity> findAll();
     Page<BookEntity> findAllByFilterWithPaging(Specification<BookEntity> specification, Pageable pageable);
     List<BookEntity>  findByName(String name);
-    List<BookEntity> findAllByAuthor(String name);
+    List<BookEntity> findAllByAuthorEntityId(Long id);
 }

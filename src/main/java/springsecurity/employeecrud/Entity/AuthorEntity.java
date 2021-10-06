@@ -1,36 +1,32 @@
 package springsecurity.employeecrud.Entity;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @ToString
 @Entity
-@Table(name = "Books")
+@Table(name = "Author")
 @Where(clause = "status=1")
-public class BookEntity {
+public class AuthorEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    private String authorName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id")
-    private AuthorEntity authorEntity;
-
-    private Date publishDate;
-
-    @Column(name = "status")
+    private String country;
+    private String totalPublications;
     private Boolean status;
+
+    @OneToMany(mappedBy = "authorEntity" , fetch = FetchType.LAZY)
+    private List<BookEntity> books;
 }

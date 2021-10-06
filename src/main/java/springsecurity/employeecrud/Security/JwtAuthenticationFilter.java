@@ -52,6 +52,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 ArrayList<String> authUrlList = new ArrayList<>();
                 authUrlList.add("Login/auth");
+                authUrlList.add("books/views");
 
                 //The upcoming urls are checked if already added in url list
 
@@ -125,8 +126,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                 tokenPermissionlist.add("books/view");
                                 tokenPermissionlist.add("books/truncate");
                                 tokenPermissionlist.add("books/getAllByAuthor");
-                                tokenPermissionlist.add("books/views");
                                 tokenPermissionlist.add("books/getAllByName");
+
+                                tokenPermissionlist.add("author/create");
+                                tokenPermissionlist.add("author/update");
+                                tokenPermissionlist.add("author/delete");
+                                tokenPermissionlist.add("author/getAll");
+                                tokenPermissionlist.add("author/view");
+                                tokenPermissionlist.add("author/truncate");
+                                tokenPermissionlist.add("author/views");
+                                tokenPermissionlist.add("author/getByName");
 
 
                                 // to check coming url in permission list

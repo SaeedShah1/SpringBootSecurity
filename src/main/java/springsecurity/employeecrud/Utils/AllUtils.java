@@ -26,7 +26,7 @@ public class AllUtils {
 
     public static Pageable createPageRequest(Map<String, String> params) {
         Pageable pageable = null;
-        String page = params.get("page");
+        String page = params.get("currentPage");
         String itemsPerPage = params.get("itemsPerPage");
         String sortBy = params.get("sortBy");
         String direction = params.get("direction");

@@ -59,7 +59,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookEntity> findAllByAuthor(String name) {
-        return repository.findAllByAuthor(name);
+    public List<BookEntity> findAllByAuthorEntityId(Long id) {
+        return repository.findAllByAuthorEntityId(id);
     }
+
+
 }

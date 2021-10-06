@@ -10,5 +10,6 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<BookEntity, Long>, JpaSpecificationExecutor<BookEntity> {
 
     List<BookEntity>  findByName(String name);
-    List<BookEntity> findAllByAuthor(String name);
+    List<BookEntity> findAllByAuthorEntityId(Long id);
+
 }
