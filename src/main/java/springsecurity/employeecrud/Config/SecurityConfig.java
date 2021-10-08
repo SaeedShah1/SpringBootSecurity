@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .cors();
                  http.authorizeRequests()
-                .antMatchers("/Login/auth","/books/views").permitAll()
+                .antMatchers("/Login/auth","/books/views","/books/view/{id}").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

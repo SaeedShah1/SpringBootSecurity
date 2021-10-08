@@ -53,6 +53,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 ArrayList<String> authUrlList = new ArrayList<>();
                 authUrlList.add("Login/auth");
                 authUrlList.add("books/views");
+                authUrlList.add("books/view");
+
 
                 //The upcoming urls are checked if already added in url list
 
