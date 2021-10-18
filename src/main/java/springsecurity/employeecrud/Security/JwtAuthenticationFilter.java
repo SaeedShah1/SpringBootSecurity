@@ -54,6 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 authUrlList.add("Login/auth");
                 authUrlList.add("books/views");
                 authUrlList.add("books/view");
+                authUrlList.add("books/getAll");
 
 
                 //The upcoming urls are checked if already added in url list
@@ -124,7 +125,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                 tokenPermissionlist.add("books/create");
                                 tokenPermissionlist.add("books/update");
                                 tokenPermissionlist.add("books/delete");
-                                tokenPermissionlist.add("books/getAll");
                                 tokenPermissionlist.add("books/view");
                                 tokenPermissionlist.add("books/truncate");
                                 tokenPermissionlist.add("books/getAllByAuthor");
